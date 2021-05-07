@@ -457,6 +457,7 @@ def imgborder(frame, fisheyeflag, campara = None):
 
     print(a1, b1, center)
     border = [int(center[1] - b1 / 2), int(center[1] + b1 / 2), int(center[0] - a1 / 2), int(center[0] + a1 / 2)]
+    print(border)
     return border
 
 def takeimg(dir, num, camnum = 0):
@@ -479,18 +480,18 @@ def takeimg(dir, num, camnum = 0):
     camera.release()
 
 if __name__ == "__main__":
-    folder = "cam1"
+    folder = "cam2"
 
     campara = pickle.load(open(folder+'/calib.pkl', 'rb'))
+    maxcount = 10
 
-    takeimg(folder, 9, 0)
+    takeimg(folder, maxcount, 0)
 
     BALL_MANUAL = 1
 
     READ_RADIUS = 0
     BallRad = 11 / 2
     Pixmm = 2.5 * 5 / 238
-    maxcount = 9
 
     bins = 80
     zeropoint = -90
@@ -501,6 +502,8 @@ if __name__ == "__main__":
     f0 = iniFrame(frame0)
     f0 = f0[border[0]: border[1], border[2]: border[3], :]
     ImList = []
+    border_1 = imgborder(frame0, 1, campara)
+    Pixmm = 25/(border[3] - border[2])
 
     gradmag = None
     gradir = None

@@ -3,6 +3,7 @@ import pickle
 import numpy as np
 from scipy.fftpack import dst, idst
 
+
 def fishye_calib(img, para):
     K, D, DIM = para
     map1, map2 = cv2.fisheye.initUndistortRectifyMap(K, D, np.eye(3), K, DIM, cv2.CV_16SC2)
@@ -12,15 +13,16 @@ def fishye_calib(img, para):
 class ImageToDepth(object):
 
     def __init__(self):
-        folder = "cam1"
+        folder = "cam2"
         self.camera_parameter = pickle.load(open(folder + '/calib.pkl', 'rb'))
-        self.lookup_table = pickle.load(open(folder + '/Lookuptable.pkl', 'rb'))
+        self.lookup_table = pickle.load(open(folder + '/result1.pkl', 'rb'))
         self.border = self.lookup_table[9]
-        frame0 = cv2.imread('0.jpg')
+        frame0 = cv2.imread(folder +'/0.jpg')
         f0 = self._init_frame(fishye_calib(frame0, self.camera_parameter))
         # self.f0 = f0[101: 381, 189: 472, :]   # cam2
         self.f0 = f0[self.border[0]: self.border[1], self.border[2]: self.border[3], :]
-        self.pix_to_mm = self.lookup_table[7]
+        # self.pix_to_mm = self.lookup_table[7]
+        self.pix_to_mm = 2.5*6/286
 
     def _init_frame(self, frame0):
         sigma = 50
