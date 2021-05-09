@@ -395,6 +395,7 @@ def LookuptableSmooth(bins, gradx, grady, countmap):
 def imgborder(frame, fisheyeflag, campara = None):
     if fisheyeflag == 1:
         frame = fishye_calib(frame, campara)
+        # cv2.imshow("show", frame)
     m, n = np.shape(frame)[:2]
     a = np.zeros((m, n)).astype(int)
     a[:, :] = frame[:, :, 0]
@@ -485,7 +486,7 @@ if __name__ == "__main__":
     campara = pickle.load(open(folder+'/calib.pkl', 'rb'))
     maxcount = 10
 
-    takeimg(folder, maxcount, 0)
+    # takeimg(folder, maxcount, 0)
 
     BALL_MANUAL = 1
 
@@ -502,8 +503,8 @@ if __name__ == "__main__":
     f0 = iniFrame(frame0)
     f0 = f0[border[0]: border[1], border[2]: border[3], :]
     ImList = []
-    border_1 = imgborder(frame0, 1, campara)
-    Pixmm = 25/(border[3] - border[2])
+    # border_1 = imgborder(frame0, 1, campara)
+    # Pixmm = 25/(border[3] - border[2])
 
     gradmag = None
     gradir = None

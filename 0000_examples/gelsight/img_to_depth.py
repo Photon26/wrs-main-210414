@@ -15,7 +15,7 @@ class ImageToDepth(object):
     def __init__(self):
         folder = "cam2"
         self.camera_parameter = pickle.load(open(folder + '/calib.pkl', 'rb'))
-        self.lookup_table = pickle.load(open(folder + '/result1.pkl', 'rb'))
+        self.lookup_table = pickle.load(open(folder + '/Lookuptable.pkl', 'rb'))
         self.border = self.lookup_table[9]
         frame0 = cv2.imread(folder +'/0.jpg')
         f0 = self._init_frame(fishye_calib(frame0, self.camera_parameter))
