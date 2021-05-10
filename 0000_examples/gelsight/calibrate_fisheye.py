@@ -18,34 +18,46 @@ def fisheye_calib(camname, num):
     if not os.path.exists(outputfolder):
         os.makedirs(outputfolder)
 
-    camera = cv2.VideoCapture(0)
-    i = 0
-    while (i<num):
-        return_cal, img = camera.read()
-        cv2.imshow("tst", img)
-        key = cv2.waitKey(0)
-        if key & 0xFF == 32:
-            print(i, "done")
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            # Find the chess board corners
-            ret, corners = cv2.findChessboardCorners(gray, CHECKERBOARD,
-                                                     cv2.CALIB_CB_ADAPTIVE_THRESH + cv2.CALIB_CB_FAST_CHECK + cv2.CALIB_CB_NORMALIZE_IMAGE)
-            # If found, add object points, image points (after refining them)
-            if ret == True:
-                objpoints.append(objp)
-                cv2.cornerSubPix(gray, corners, (3, 3), (-1, -1), subpix_criteria)
-                imgpoints.append(corners)
+    # camera = cv2.VideoCapture(1)
+    # i = 0
+    # while (i<num):
+    #     return_cal, img = camera.read()
+    #     cv2.imshow("tst", img)
+    #     key = cv2.waitKey(0)
+    #     if key & 0xFF == 32:
+    #         print(i, "done")
+    #         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    #         # Find the chess board corners
+    #         ret, corners = cv2.findChessboardCorners(gray, CHECKERBOARD,
+    #                                                  cv2.CALIB_CB_ADAPTIVE_THRESH + cv2.CALIB_CB_FAST_CHECK + cv2.CALIB_CB_NORMALIZE_IMAGE)
+    #         # If found, add object points, image points (after refining them)
+    #         if ret == True:
+    #             objpoints.append(objp)
+    #             cv2.cornerSubPix(gray, corners, (3, 3), (-1, -1), subpix_criteria)
+    #             imgpoints.append(corners)
+    #
+    #         cv2.imwrite(outputfolder + str(i) + '.jpg', img)
+    #         i = i+1
+    # camera.release()
 
-            cv2.imwrite(outputfolder + str(i) + '.jpg', img)
-            i = i+1
-    camera.release()
+
+    for n in range(0, 40):
+        img = cv2.imread(outputfolder+str(n)+'.jpg')
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        ret, corners = cv2.findChessboardCorners(gray, CHECKERBOARD,
+              cv2.CALIB_CB_ADAPTIVE_THRESH + cv2.CALIB_CB_FAST_CHECK + cv2.CALIB_CB_NORMALIZE_IMAGE)
+        if ret == True:
+            objpoints.append(objp)
+            cv2.cornerSubPix(gray, corners, (3, 3), (-1, -1), subpix_criteria)
+            imgpoints.append(corners)
+
 
     N_OK = len(objpoints)
     K = np.zeros((3, 3))
     D = np.zeros((4, 1))
     rvecs = [np.zeros((1, 1, 3), dtype=np.float64) for i in range(N_OK)]
     tvecs = [np.zeros((1, 1, 3), dtype=np.float64) for i in range(N_OK)]
-    print(objpoints, imgpoints)
+    # print(objpoints, imgpoints)
     rms, _, _, _, _ = \
         cv2.fisheye.calibrate(
             objpoints,
