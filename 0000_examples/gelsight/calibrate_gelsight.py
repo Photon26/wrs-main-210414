@@ -483,16 +483,16 @@ def takeimg(dir, num, camnum = 0):
 if __name__ == "__main__":
     folder = "cam2"
 
-    campara = pickle.load(open(folder+'/calib.pkl', 'rb'))
+    campara = pickle.load(open(folder+'/cam3_calib.pkl', 'rb'))
     maxcount = 10
 
-    # takeimg(folder, maxcount, 1)
+    takeimg(folder, maxcount, 1)
 
     BALL_MANUAL = 1
 
     READ_RADIUS = 0
     BallRad = 11 / 2
-    Pixmm = 2.5 * 5 / 238
+    Pixmm = 10/485*2
 
     bins = 80
     zeropoint = -90
