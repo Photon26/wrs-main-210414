@@ -461,7 +461,7 @@ def imgborder(frame, fisheyeflag, campara = None):
     print(border)
     return border
 
-def takeimg(dir, num, camnum = 0):
+def takeimg(dir, num, camnum = 0, filename = None):
     outputfolder = dir + '/'
     if not os.path.exists(outputfolder):
         os.makedirs(outputfolder)
@@ -475,7 +475,10 @@ def takeimg(dir, num, camnum = 0):
         key = cv2.waitKey(0)
         if key & 0xFF == 32:
             print(i, "done")
-            cv2.imwrite(outputfolder + str(i) + '.jpg', image)
+            if filename is None:
+                cv2.imwrite(outputfolder + str(i) + '.jpg', image)
+            else:
+                cv2.imwrite(outputfolder + filename + '.jpg', image)
             i = i+1
 
     camera.release()
@@ -486,7 +489,7 @@ if __name__ == "__main__":
     campara = pickle.load(open(folder+'/cam3_calib.pkl', 'rb'))
     maxcount = 10
 
-    takeimg(folder, maxcount, 1)
+    takeimg(folder, maxcount, 0)
 
     BALL_MANUAL = 1
 

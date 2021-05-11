@@ -14,7 +14,7 @@ class ImageToDepth(object):
 
     def __init__(self):
         folder = "cam2"
-        self.camera_parameter = pickle.load(open(folder + '/calib.pkl', 'rb'))
+        self.camera_parameter = pickle.load(open(folder + '/cam3_calib.pkl', 'rb'))
         self.lookup_table = pickle.load(open(folder + '/Lookuptable.pkl', 'rb'))
         self.border = self.lookup_table[9]
         frame0 = cv2.imread(folder +'/0.jpg')
@@ -133,7 +133,7 @@ class ImageToDepth(object):
         xgrid, ygrid = np.meshgrid(x, y)
         d_ptcd[:, 0] = xgrid.flatten()
         d_ptcd[:, 1] = ygrid.flatten()
-        d_ptcd[:, 2] = hm.flatten()
+        d_ptcd[:, 2] = hm.flatten()*20
         return d_ptcd, hm
 
 if __name__ == "__main__":
