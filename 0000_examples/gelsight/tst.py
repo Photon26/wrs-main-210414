@@ -7,4 +7,4 @@ import pickle
 # img = cv2.imread("fisheye/1tst.jpg")
 # border = imgborder(img, 1, campara=para)
 # print(border)
-takeimg("cam2",0, 0, "tst3")
+takeimg("cam2",0, 0, "tst4")

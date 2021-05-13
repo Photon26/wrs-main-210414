@@ -17,7 +17,7 @@ object.attach_to(base)
 component_name = 'lft_arm'
 robot_s = ur3d.UR3Dual()
 
-# possible right goal np.array([0, -math.pi/4, 0, math.pi/2, math.pi/2, math.pi / 6])
+# possible right goal np.array([0, -math.pi/4, 0, math.p i/2, math.pi/2, math.pi / 6])
 # possible left goal np.array([0, -math.pi / 2, -math.pi/3, -math.pi / 2, math.pi / 6, math.pi / 6])
 
 rrtc_planner = rrtc.RRTConnect(robot_s)
