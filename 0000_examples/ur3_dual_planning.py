@@ -21,19 +21,19 @@ robot_s = ur3d.UR3Dual()
 # possible left goal np.array([0, -math.pi / 2, -math.pi/3, -math.pi / 2, math.pi / 6, math.pi / 6])
 
 rrtc_planner = rrtc.RRTConnect(robot_s)
-path = rrtc_planner.plan(component_name=component_name,
-                         start_conf=robot_s.lft_arm.homeconf,
-                         goal_conf=np.array([0, -math.pi / 2, -math.pi/3, -math.pi / 2, math.pi / 6, math.pi / 6]),
-                         obstacle_list=[object],
-                         ext_dist=.2,
-                         rand_rate=70,
-                         maxtime=300)
-print(path)
-for pose in path:
-    print(pose)
-    robot_s.fk(component_name, pose)
-    robot_meshmodel = robot_s.gen_meshmodel()
-    robot_meshmodel.attach_to(base)
-    robot_s.gen_stickmodel().attach_to(base)
+# path = rrtc_planner.plan(component_name=component_name,
+#                          start_conf=robot_s.lft_arm.homeconf,
+#                          goal_conf=np.array([0, -math.pi / 2, -math.pi/3, -math.pi / 2, math.pi / 6, math.pi / 6]),
+#                          obstacle_list=[object],
+#                          ext_dist=.2,
+#                          rand_rate=70,
+#                          maxtime=300)
+# print(path)
+# for pose in path:
+#     print(pose)
+#     robot_s.fk(component_name, pose)
+#     robot_meshmodel = robot_s.gen_meshmodel()
+#     robot_meshmodel.attach_to(base)
+#     robot_s.gen_stickmodel().attach_to(base)
 
 base.run()
