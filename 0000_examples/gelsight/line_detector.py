@@ -18,6 +18,8 @@ from modeling.geometricmodel import gen_pointcloud
 image = cv2.imread("cam2/tst4.jpg")
 frame = image
 itd_cvter = itd.ImageToDepth()
+pixmm = itd_cvter.pix_to_mm
+
 depth, hm = itd_cvter.convert(frame)
 
 depth_max = np.max(hm)
@@ -95,4 +97,8 @@ mask1 = mask*mask1
 mask2 = mask*mask2
 sum_up = np.sum(mask1*hm, 1)
 sum_low = np.sum(mask2*hm, 1)
+
+dz = (y0 - centery)*pixmm
+
+
 
