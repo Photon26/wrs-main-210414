@@ -14,7 +14,6 @@ gm.gen_frame().attach_to(base)
 # object.set_rgba([.5, .7, .3, 1])
 # object.attach_to(base)
 # robot_s
-component_name = 'lft_arm'
 robot_s = ur3d.UR3Dual()
 
 # possible right goal np.array([0, -math.pi/4, 0, math.p i/2, math.pi/2, math.pi / 6])
@@ -38,14 +37,15 @@ robot_s = ur3d.UR3Dual()
 pose_hnd = robot_s.get_gl_tcp(manipulator_name="lft_arm")
 print(pose_hnd)
 
-ini_pos = np.array([ 0.3, 0,  1.4])
-ini_rot = np.array([[ 1, 0,  0],
+ini_pos_lft = np.array([ 0.3, 0,  1.4])
+ini_rot_lft = np.array([[ 1, 0,  0],
        [ 0 , 0, -1],
        [ 0,  1,  0]])
-newjnt = robot_s.ik("lft_arm", ini_pos, ini_rot)
+newjnt = robot_s.ik("lft_arm", ini_pos_lft, ini_rot_lft)
 robot_s.fk(component_name, newjnt)
 robot_meshmodel = robot_s.gen_meshmodel(toggle_tcpcs=True)
 robot_meshmodel.attach_to(base)
+
 
 for theta in range(0, 4):
 

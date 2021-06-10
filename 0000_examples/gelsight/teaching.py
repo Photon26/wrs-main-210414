@@ -7,10 +7,8 @@ import robotsim.robots.ur3_dual.ur3_dual as ur3d
 import motion.probabilistic.rrt_connect as rrtc
 import robotcon.ur.ur3_dual_x as ur3dx
 import pickle
-<<<<<<< HEAD
 import time
-=======
->>>>>>> fff64d4a866959d60a5def07a6cf9cd5c3beb158
+
 
 base = wd.World(cam_pos=[2, 1, 3], lookat_pos=[0, 0, 1.1])
 gm.gen_frame().attach_to(base)
@@ -28,8 +26,6 @@ ur_dual_x = ur3dx.UR3DualX(lft_robot_ip='10.2.0.50', rgt_robot_ip='10.2.0.51', p
 # goal_rgt_arm_jnt_values = np.array([0, -math.pi/4, 0, math.pi/2, math.pi/2, math.pi / 6])
 # robot_instance.fk(component_name="lft_arm", jnt_values = np.array([0, -math.pi / 2, -math.pi/3, -math.pi / 2, math.pi / 6, math.pi / 6]))
 # pos = robot_instance.lft_arm.get_gl_tcp()
-
-<<<<<<< HEAD
 
 # gm.gen_sphere(pos[0]).attach_to(base)
 #
@@ -76,7 +72,7 @@ ur_dual_x.lft_arm_hnd.move_jntspace_path(pose,interval_time=0.7)
 # # gm.gen_sphere(pos_sensor).attach_to(base)
 # pos_nail = pos_sensor + np.dot(pos[1], np.array([0,-0.003,0.02175]))
 #
-=======
+
 # robot_meshmodel = robot_instance.gen_meshmodel(toggle_tcpcs=True)
 # robot_meshmodel.attach_to(base)
 # gm.gen_sphere(pos[0]).attach_to(base)
@@ -94,5 +90,5 @@ while(count < 10000):
 
 print("done")
 pickle.dump(pose, open("pose_lft.pkl", "wb"))
->>>>>>> fff64d4a866959d60a5def07a6cf9cd5c3beb158
+
 # base.run()
