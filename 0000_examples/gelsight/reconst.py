@@ -11,12 +11,12 @@ from panda3d.core import NodePath
 import visualization.panda.world as world
 from modeling.geometricmodel import gen_pointcloud
 
-image = cv2.imread("cam2/tst4.jpg")
+image = cv2.imread("cam2/3.jpg")
 frame = image
 itd_cvter = itd.ImageToDepth()
 depth, hm = itd_cvter.convert(frame)
 
-#   mathplot
+# #   mathplot
 # s1, s2 = np.shape(hm)[:2]
 # #   plot the depth pic
 # fig = plt.figure()
