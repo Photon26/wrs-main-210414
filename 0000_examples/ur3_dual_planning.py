@@ -47,7 +47,8 @@ robot_s.fk(component_name, newjnt)
 robot_meshmodel = robot_s.gen_meshmodel(toggle_tcpcs=True)
 robot_meshmodel.attach_to(base)
 
-for theta in range(0, 2):
+for theta in range(0, 4):
+
     rotmat = np.array([[np.cos(np.pi/4*theta),0, np.sin(np.pi/4*theta)], [0,1,0],[-np.sin(theta),0,np.cos(np.pi/4*theta)]])
     rot = np.dot(rotmat, ini_rot)
     newjnt = robot_s.ik("lft_arm", ini_pos, rot)
