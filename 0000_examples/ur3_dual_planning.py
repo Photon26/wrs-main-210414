@@ -38,10 +38,12 @@ robot_s = ur3d.UR3Dual()
 pose_hnd = robot_s.get_gl_tcp(manipulator_name="lft_arm")
 print(pose_hnd)
 
-ini_pos = np.array([0.4, 0, 1.3])
-ini_rot = np.array([[1,0,0],[0,-1,0],[0,1,0]])
+ini_pos = np.array([ 0.3, 0,  1.4])
+ini_rot = np.array([[ 1, 0,  0],
+       [ 0 , 0, -1],
+       [ 0,  1,  0]])
 newjnt = robot_s.ik("lft_arm", ini_pos, ini_rot)
-robot_s.lft_arm.fk(newjnt)
+robot_s.fk(component_name, newjnt)
 robot_meshmodel = robot_s.gen_meshmodel(toggle_tcpcs=True)
 robot_meshmodel.attach_to(base)
 
@@ -49,7 +51,7 @@ for theta in range(0, 2):
     rotmat = np.array([[np.cos(np.pi/4*theta),0, np.sin(np.pi/4*theta)], [0,1,0],[-np.sin(theta),0,np.cos(np.pi/4*theta)]])
     rot = np.dot(rotmat, ini_rot)
     newjnt = robot_s.ik("lft_arm", ini_pos, rot)
-    robot_s.lft_arm.fk(newjnt)
+    robot_s.fk(component_name, newjnt)
     robot_meshmodel = robot_s.gen_meshmodel(toggle_tcpcs=True)
     robot_meshmodel.attach_to(base)
 
