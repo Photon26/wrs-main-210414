@@ -22,14 +22,11 @@ robot_s = ur3d.UR3Dual()
 pose_hnd = robot_s.get_gl_tcp(manipulator_name="lft_arm")
 print(pose_hnd)
 
-ini_pos = np.array([ 0.3, 0,  1.5])
+ini_pos = np.array([ 0.2, 0,  1.4])
 ini_rot_lft = np.array([[ 1, 0,  0],
        [ 0 , 0, -1],
        [ 0,  1,  0]])
-newjnt = robot_s.ik("lft_arm", ini_pos, ini_rot_lft)
-robot_s.fk("lft_arm", newjnt)
-robot_meshmodel = robot_s.gen_meshmodel(toggle_tcpcs=True)
-robot_meshmodel.attach_to(base)
+# robot_meshmodel.attach_to(base)
 center = ini_pos + np.dot(ini_rot_lft, np.array([0, -0.001*outer_rad, 0]))
 
 ini_rot_rgt = np.array([[ -1, 0,  0],
@@ -37,7 +34,7 @@ ini_rot_rgt = np.array([[ -1, 0,  0],
        [ 0,  1,  0]])
 
 jnt_list = []
-for theta in range(0,13):
+for theta in range(0,10):
     rotmat = np.array([[np.cos(np.pi / 24 * theta + np.pi/4), 0, np.sin(np.pi / 24 * theta + np.pi/4)], [0, 1, 0],
                        [-np.sin(theta), 0, np.cos(np.pi / 4 * theta)]])
     rot = np.dot(rotmat, ini_rot_rgt)
@@ -47,13 +44,23 @@ for theta in range(0,13):
 
 #  rgt hand hold the tape
 ini_jnt_rgt = jnt_list[0]
+ur_dual_x.rgt_arm_hnd.move_jnts(ini_jnt_rgt)
 
 #  loose lft hand a bit
+ini_pos_lft = ini_pos + np.dot(ini_rot_lft, np.array([0,0.01,0]))
+newjnt = robot_s.ik("lft_arm", ini_pos_lft, ini_rot_lft)
+robot_s.fk("lft_arm", newjnt)
+print(newjnt*180/np.pi)
+# ur_dual_x.lft_arm_hnd.move_jnts(newjnt)
 
 #  rotate rgt hand
 for jnt in jnt_list:
-    ur_dual_x.rgt_arm_hnd.move_jnts(jnt)
-
+    if jnt is not None:
+        print("*")
+        # ur_dual_x.rgt_arm_hnd.move_jnts(jnt)
+        robot_s.fk("rgt_arm", jnt)
+        robot_meshmodel = robot_s.gen_meshmodel(toggle_tcpcs=True)
+        robot_meshmodel.attach_to(base)
 
 # for theta in range(1, 4):
 #     rotmat = np.array([[np.cos(np.pi/4*theta),0, np.sin(np.pi/4*theta)], [0,1,0],[-np.sin(theta),0,np.cos(np.pi/4*theta)]])
